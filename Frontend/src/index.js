@@ -1,11 +1,26 @@
 const defCollectionDiv = document.querySelector("#definition-collection");
+const welcomeDiv = document.querySelector("#welcome");
 const headerDiv = document.querySelector("#header");
 const footerDiv = document.querySelector("#footer");
 const currentWordEl = document.createElement("h1");
 const livesEl = document.createElement("h1");
 const scoreEl = document.createElement("h1");
+const scoreDiv = document.querySelector("#score");
 let score = 0;
 let lives = 3;
+let game = false;
+const addBtn = document.createElement("button");
+///TOY TALE
+
+document.addEventListener("DOMContentLoaded", () => {
+  addBtn.addEventListener("click", () => {
+    // hide & seek with the form
+    game = !game;
+    if (game) {
+      newGame();
+    }
+  });
+});
 
 
 // let random = Math.floor(Math.random() * 3);
@@ -59,6 +74,7 @@ const selectedAnswer = (event, randomN) => {
 
 // Render Index Page
 const renderWords = words => {
+  welcomeDiv.innerHTML = "";
   scoreEl.className = "score";
   scoreEl.innerText = `Score: ${score}`;
 
@@ -70,7 +86,8 @@ const renderWords = words => {
   headerDiv.append(currentWordEl);
   let id = 1;
   wordsArray.forEach(word => renderWord(word, id++, randomN));
-  footerDiv.append(scoreEl, livesEl);
+  scoreDiv.append(scoreEl);
+  footerDiv.append(livesEl);
 };
 
 const renderWord = (word, id, randomN) => {
@@ -94,7 +111,21 @@ const URL = "http://api.urbandictionary.com/v0/random";
 const API = {
   getWords: () => fetch(URL).then(response => response.json())
 };
+const newGame = () => {
+  API.getWords().then(words => renderWords(words));
+};
+const renderHome = () => {
+  const nameEl = document.createElement("h1");
+  nameEl.innerText = "Urban Trivia";
+  addBtn.innerText = "Play Game";
 
-API.getWords().then(words => renderWords(words));
+  // const playGameButton = document.createElement("button");
+  // playGameButton.innerText = "Play Game";
+  // playGameButton.addEventListener("click", newGame());
 
+  welcomeDiv.append(nameEl, addBtn);
+};
+
+
+renderHome();
 
