@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+
 // let random = Math.floor(Math.random() * 3);
 const random = () => {
   return Math.floor(Math.random() * 3);
@@ -33,18 +34,35 @@ const selectedAnswer = (event, randomN) => {
   let arrEl = randomN + 1;
   //If the answer the user selected is the correct then score++
   if (selctedA == arrEl) {
-    score++;
+    score++
+  } else if (selctedA != arrEl && lives == 0) {
+    // livesEl.innerText = "Game Over! :("
+    const gameEl = document.createElement("h1")
+    gameEl.innerText = "Game Over! :("
+    lives = gameEl.innerText
+    currentWordEl.innerText = "End of Game..Thanks for Playing! :)"
+    
+    //render blank screen
   } else {
     lives--;
   }
+  
+  
+  
+  
+  // else if (lives = 0) {
+  //   const gameEl = document.createElement("h1")
+  //   gameEl.innerText = "Game Over! :("
+  //   lives = gameEl.innerText
+  // }else if (lives = "Game Over! :(") {
+  //   currentWordEl.innerText = "End of Game..Thanks for Playing! :)"
+  //   definitionEl.innerText = "";
+  // }
+
 
   defCollectionDiv.innerHTML = ""; //clears page
   footerDiv.innerHTML = ""; //clears scoreEl and livesEl so it can be updates with rerender
 
-  // if (lives == 0) {
-  //   livesEl.innerHTML = "Game over!";
-  //  gameoverScreen = new game or logout
-  // } else {
   API.getWords().then(words => renderWords(words)); //renders new definitions
   //   }
   // };
@@ -108,4 +126,6 @@ const renderHome = () => {
   welcomeDiv.append(nameEl, addBtn);
 };
 
+
 renderHome();
+
