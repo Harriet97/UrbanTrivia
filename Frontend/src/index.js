@@ -17,6 +17,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // hide & seek with the form
     game = !game;
     if (game) {
+      welcomeDiv.remove();
+      ///ADD FORM FOR USERNAME --> POST REQUEST TO USER DB
       newGame();
     }
   });
@@ -105,6 +107,7 @@ const newGame = () => {
 const renderHome = () => {
   const nameEl = document.createElement("h1");
   nameEl.innerText = "Urban Trivia";
+  nameEl.className = "bounce";
   addBtn.innerText = "Play Game";
 
   // const playGameButton = document.createElement("button");

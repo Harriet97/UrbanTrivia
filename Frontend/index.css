@@ -2,16 +2,31 @@ body {
   margin: 0;
   height: 100%;
   width: 100%;
-  /* background-color: #fe5f55; */
   font-family: "Fredoka One";
   font-weight: lighter;
 }
 
 #welcome {
   text-align: center;
-  /* height: 100%; */
-
+  text-align-last: center;
+  padding: 470px 0;
+  height: 100%;
   background: #fe5f55;
+  color: #fe5f55;
+  font-family: "Fredoka One", cursive;
+  color: white;
+  letter-spacing: 5px;
+  font-size: 2em;
+  text-shadow: 5px 5px #384e77;
+  text-align: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  -webkit-animation: bounce 1s infinite;
 }
 
 #header {
@@ -21,8 +36,8 @@ body {
   opacity: 0.8;
   font-family: "Fredoka One";
   color: #f8dedc;
-
   font-size: 1.8rem;
+  text-shadow: 5px 5px #384e77;
 }
 
 #definition-collection {
@@ -75,4 +90,45 @@ body {
   background-color: #fe5f55;
   box-shadow: 0 5px #666;
   transform: translateY(15px);
+}
+
+button {
+  cursor: pointer;
+  border-radius: 12px;
+  width: 180px;
+  height: 70px;
+  font-family: "Fredoka One";
+  font-size: 1.8rem;
+  color: #fe5f55;
+  box-shadow: 5px 5px #384e77;
+}
+
+button:hover {
+  background-color: #ffcecb; /* Green */
+}
+
+.bounce {
+  position: fixed;
+  left: 38%;
+
+  height: 50px;
+  -webkit-animation: bounce 1.5s infinite;
+}
+
+@-webkit-keyframes bounce {
+  0% {
+    bottom: 55%;
+  }
+  25% {
+    bottom: 57%;
+  }
+  75% {
+    bottom: 57%;
+  }
+  50% {
+    bottom: 55%;
+  }
+  100% {
+    bottom: 55%;
+  }
 }
