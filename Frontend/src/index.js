@@ -8,6 +8,7 @@ const scoreEl = document.createElement("h1");
 const scoreDiv = document.querySelector("#score");
 let score = 0;
 let lives = 3;
+let level = 0;
 let game = false;
 const addBtn = document.createElement("button");
 ///TOY TALE
@@ -48,6 +49,13 @@ const selectedAnswer = (event, randomN) => {
     footerDiv.innerHTML = ""; //clears scoreEl and livesEl so it can be updates with rerender
     //render blank screen
     scoreEl.innerHTML = `Your final score is ${score}`;
+    const userForm = document.createElement("form")
+    const inputForm = document.createElement("input")
+    inputForm.innerText = "username"
+    const formBtn = document.createElement("button")
+    formBtn.innerText = "Save Username"
+    userForm.append(inputForm, formBtn)
+    defCollectionDiv.append(userForm)
   } else {
     lives--;
     defCollectionDiv.innerHTML = ""; //clears page
@@ -79,6 +87,9 @@ const renderWords = words => {
   scoreDiv.append(scoreEl);
   footerDiv.append(livesEl);
 };
+const gameRound = event => {
+
+}
 
 const renderWord = (word, id, randomN) => {
   const wordDiv = document.createElement("div");
@@ -118,3 +129,4 @@ const renderHome = () => {
 };
 
 renderHome();
+
