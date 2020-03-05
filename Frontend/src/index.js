@@ -2,32 +2,78 @@ const defCollectionDiv = document.querySelector("#definition-collection");
 const welcomeDiv = document.querySelector("#welcome");
 const headerDiv = document.querySelector("#header");
 const footerDiv = document.querySelector("#footer");
+const scoreDiv = document.querySelector("#score");
 const currentWordEl = document.createElement("h1");
 const livesEl = document.createElement("h1");
 const scoreEl = document.createElement("h1");
-const scoreDiv = document.querySelector("#score");
 let score = 0;
 let lives = 3;
-let level = 0;
-let game = false;
+const timer = document.createElement("button");
+timer.setAttribute("id", "counter");
+timer.className = "timer";
+// let game = false;
 const addBtn = document.createElement("button");
+addBtn.className = "game";
+const EMPTY_HEART = "♡";
+const FULL_HEART = "♥";
+
+//TIMER:
+function countdown() {
+  let seconds = 60;
+  const tick = () => {
+    seconds--;
+    timer.innerHTML = "00:" + (seconds < 10 ? "0" : "") + seconds.toString();
+    if (seconds > 0) {
+      setTimeout(tick, 1000);
+    } else {
+      timer.innerHTML = "Time's up!";
+      gameOver();
+    }
+  };
+  tick();
+}
+
 ///TOY TALE
 
 document.addEventListener("DOMContentLoaded", () => {
   addBtn.addEventListener("click", () => {
-    // hide & seek with the form
-    game = !game;
-    if (game) {
-      welcomeDiv.remove();
-      ///ADD FORM FOR USERNAME --> POST REQUEST TO USER DB
-      newGame();
-    }
+    welcomeDiv.remove();
+    newGame();
+    countdown();
+    // }
   });
 });
 
 // let random = Math.floor(Math.random() * 3);
 const random = () => {
   return Math.floor(Math.random() * 3);
+};
+
+// Game over screen
+const gameOver = () => {
+  const gameEl = document.createElement("h1");
+  gameEl.innerText = "Game Over! :(";
+  lives = gameEl.innerText;
+  currentWordEl.innerText = "Game over..Thanks for Playing! :)";
+  defCollectionDiv.innerHTML = ""; //clears page
+  //clears scoreEl and livesEl so it can be updates with rerender
+  //render blank screen
+  scoreEl.innerHTML = `Your final score is: ${score}`;
+  const timesUpEl = document.createElement("h1");
+  const userForm = document.createElement("form");
+  const inputForm = document.createElement("input");
+  inputForm.innerText = "username";
+  timesUpEl.innerText = "Time's up!";
+  timer.remove();
+  livesEl.remove();
+  const instructionEl = document.createElement("h2");
+  instructionEl.innerText = "Enter your name to save your score!";
+  const formBtn = document.createElement("button");
+  formBtn.className = "form";
+  formBtn.innerText = "save score";
+  userForm.append(timesUpEl, instructionEl, inputForm, formBtn);
+  defCollectionDiv.append(userForm);
+  scoreDiv.append(scoreEl);
 };
 
 // Select Answer Event Listener Function
@@ -69,6 +115,10 @@ const selectedAnswer = (event, randomN) => {
     formBtn.innerText = "Save Username"
     userForm.append(inputForm, formBtn)
     defCollectionDiv.append(userForm)
+    gameOver();
+    timer.remove();
+    livesEl.remove();
+
   } else {
     lives--;
     defCollectionDiv.innerHTML = ""; //clears page
@@ -90,6 +140,7 @@ const renderWords = words => {
   scoreEl.innerText = `Score: ${score}`;
 
   livesEl.className = "lives";
+
   livesEl.innerText = `Lives: ${lives}`;
   let wordsArray = words.list.slice(0, 4);
   let randomN = random();
@@ -97,16 +148,11 @@ const renderWords = words => {
   headerDiv.append(currentWordEl);
   let id = 1;
   wordsArray.forEach(word => renderWord(word, id++, randomN));
-  scoreDiv.append(scoreEl);
-  footerDiv.append(livesEl);
+  footerDiv.append(scoreEl, timer, livesEl);
 };
-const gameRound = event => {
-
-}
 
 const renderWord = (word, id, randomN) => {
   const wordDiv = document.createElement("div");
-  // wordDiv.innerHTML = "";
   wordDiv.className = "card";
   wordDiv.id = id;
   wordDiv.addEventListener("click", () => {
@@ -150,4 +196,3 @@ const renderHome = () => {
 };
 
 renderHome();
-
