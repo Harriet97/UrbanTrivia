@@ -87,9 +87,38 @@ const selectedAnswer = (event, randomN) => {
     footerDiv.innerHTML = ""; //clears scoreEl and livesEl so it can be updates with rerender
     API.getWords().then(words => renderWords(words));
   } else if (selctedA != arrEl && lives == 0) {
+    const gameEl = document.createElement("h1");
+    gameEl.innerText = "Game Over! :(";
+    lives = gameEl.innerText;
+    currentWordEl.innerText = "End of Game..Thanks for Playing! :)";
+    defCollectionDiv.innerHTML = ""; //clears page
+    footerDiv.innerHTML = ""; //clears scoreEl and livesEl so it can be updates with rerender
+    //render blank screen
+    scoreEl.innerHTML = `Your final score is ${score}`;
+    const userForm = document.createElement("form")
+    userForm.addEventListener("submit", event => {
+      event.preventDefault()
+      const newPlayer = `Username: ` + event.target.elements.username.value + ` Score: ${score}`
+      console.log(newPlayer)
+      // const headerEl = document.createElement("h1")
+      // headerEl.innerText = "LEADERBOARD:"
+      // const userLeaderboard = document.createElement("ul")
+      // const userLeaderboardPosition = document.createElement("li")
+      // userLeaderboardPosition.append(newPlayer)
+      // userLeaderboard.append(userLeaderboardPosition)
+      footerDiv.append(headerEl, userLeaderboard)
+    })
+    const inputForm = document.createElement("input")
+    inputForm.innerText = "username"
+    inputForm.name = "username"
+    const formBtn = document.createElement("button")
+    formBtn.innerText = "Save Username"
+    userForm.append(inputForm, formBtn)
+    defCollectionDiv.append(userForm)
     gameOver();
     timer.remove();
     livesEl.remove();
+
   } else {
     lives--;
     defCollectionDiv.innerHTML = ""; //clears page
@@ -140,7 +169,15 @@ const renderWord = (word, id, randomN) => {
 ///////////////////////////////
 const URL = "http://api.urbandictionary.com/v0/random";
 const API = {
-  getWords: () => fetch(URL).then(response => response.json())
+  getWords: () => fetch(URL).then(response => response.json()),
+  postUsername: (newPlayer) => fetch(URL, {
+    headers: {
+      Accept: 'application/json',
+      "Content-type": "application/json"
+    },
+    method: "POST",
+    body: JSON.stringify(newPlayer)
+  }).then(response => response.json())
 };
 const newGame = () => {
   API.getWords().then(words => renderWords(words));
