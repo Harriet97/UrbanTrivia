@@ -14,7 +14,8 @@ body {
 #welcome {
   text-align: center;
   text-align-last: center;
-  padding: 470px 0;
+  margin-right: 20px;
+  padding: 400px 0;
   height: 100%;
   background: #fe5f55;
   color: #fe5f55;
@@ -24,9 +25,9 @@ body {
   letter-spacing: 5px;
   font-size: 2em;
   text-shadow: 5px 5px #384e77;
-  position: absolute;
+  /* position: absolute; */
   top: 0;
-  left: 0;
+  left: 20px;
   bottom: 0;
   right: 0;
   height: 100%;
@@ -142,7 +143,7 @@ button.form {
 
 .bounce {
   position: fixed;
-  left: 38%;
+  left: 35%;
 
   height: 50px;
   -webkit-animation: bounce 1.5s infinite;
@@ -181,4 +182,14 @@ input {
   padding: 12px 12px;
   margin: 8px 0;
   box-sizing: border-box;
+}
+
+table {
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 12px;
+  font-family: "Spartan";
+  font-size: 1.8rem;
+  color: #fe5f55;
+  box-shadow: #384e77;
 }
